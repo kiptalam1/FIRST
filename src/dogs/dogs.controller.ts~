@@ -11,4 +11,8 @@ export class DogsController {
     create(): string {
         return 'This action adds a new dog';
     }
+    @Get('abdc/*')
+    findAllRoutes() {
+        return 'This rroute uses a wildcard';
+    }
 }
