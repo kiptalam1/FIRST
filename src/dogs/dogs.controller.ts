@@ -1,6 +1,7 @@
-import { Controller, Get, Header, HttpCode, Param, Post, Query, Redirect, Res } from '@nestjs/common';
+import { Body, Controller, Get, Header, HttpCode, Param, Post, Query, Redirect, Res } from '@nestjs/common';
 import { response } from 'express';
 import { version } from 'os';
+import { CreateDogDto } from './dto/create-dog.dto';
 
 @Controller('dogs')
 export class DogsController {
@@ -41,5 +42,11 @@ export class DogsController {
     @Get(':id')
     findOneDog(@Param('id') id: string): string {
         return `This action returns a #${id} dog`;
+    }
+
+    @Post()
+    async createDog(@Body() createDogDto: CreateDogDto) {
+        console.log(createDogDto);
+        return 'This action adds a new dog';
     }
 }
