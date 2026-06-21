@@ -44,9 +44,16 @@ export class DogsController {
         return `This action returns a #${id} dog`;
     }
 
+    // Request payloads
     @Post()
     async createDog(@Body() createDogDto: CreateDogDto) {
         console.log(createDogDto);
         return 'This action adds a new dog';
+    }
+
+    // Query parameters
+    @Get()
+    async findAllDogs(@Query('age') age: number, @Query('breed') breed: string) {
+        return `This action returns all dogs filtered by age: ${age} and breed: ${breed}`
     }
 }
