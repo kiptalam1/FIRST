@@ -1,4 +1,4 @@
-import { Controller, Get, Header, HttpCode, Post, Query, Redirect, Res } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, Param, Post, Query, Redirect, Res } from '@nestjs/common';
 import { response } from 'express';
 import { version } from 'os';
 
@@ -31,4 +31,15 @@ export class DogsController {
         }
     }
 
+    // Route parameters
+    @Get(':id')
+    findOne(@Param() params: any): string {
+        console.log(params.id);
+        return `This action returns a #${params.id} dog`;
+    }
+
+    @Get(':id')
+    findOneDog(@Param('id') id: string): string {
+        return `This action returns a #${id} dog`;
+    }
 }
