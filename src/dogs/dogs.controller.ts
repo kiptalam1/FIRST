@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Post, Res } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, Post, Res } from '@nestjs/common';
 import { response } from 'express';
 
 @Controller('dogs')
@@ -9,6 +9,7 @@ export class DogsController {
     }
     @Post()
     @HttpCode(204)
+    @Header('Cache-Control', 'no-store')
     create(): string {
         return 'This action adds a new dog';
     }
