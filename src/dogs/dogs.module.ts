@@ -7,4 +7,6 @@ import { DogsService } from './dogs.service';
   providers: [DogsService],
   exports: [DogsService]
 })
-export class DogsModule { }
+export class DogsModule {
+  constructor(private dogsService: DogsService) { }
+}
