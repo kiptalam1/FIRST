@@ -16,6 +16,11 @@ import { LoggerMiddleware } from './dogs/logger.middleware';
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer.apply(LoggerMiddleware)
+            .exclude({
+                path: 'dogs', method: RequestMethod.POST
+            },
+                'dogs/{*splat}',
+            )
             .forRoutes({ path: 'dogs', method: RequestMethod.GET });
     }
 }
