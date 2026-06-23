@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Header, HttpCode, Param, Post, Query, Redirect, Res } from '@nestjs/common';
 import { response } from 'express';
-import { version } from 'os';
 import { CreateDogDto } from './dto/create-dog.dto';
+import { DogsService } from './dogs.service';
 
 @Controller('dogs')
 export class DogsController {
+    constructor(private dogsService: DogsService) { }
     @Get(@Res() response: Response)
     findAll(): string {
         return 'This action returns all dogs';
@@ -12,8 +13,8 @@ export class DogsController {
     @Post()
     @HttpCode(204)
     @Header('Cache-Control', 'no-store')
-    create(): string {
-        return 'This action adds a new dog';
+    create(@Body() createDogDto: CreateDogDto) {
+        this.dogsService.create(createDogDto)
     }
 
     @Get('abdc/*')
@@ -55,5 +56,11 @@ export class DogsController {
     @Get()
     async findAllDogs(@Query('age') age: number, @Query('breed') breed: string) {
         return `This action returns all dogs filtered by age: ${age} and breed: ${breed}`
+    }
+
+
+    @Get()
+    async getAllDogs(): Promise<CreateDogDto[]> {
+        return this.dogsService.findAll();
     }
 }
