@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, HttpCode, Param, Post, Query, Redirect, Res } from '@nestjs/common';
+import { Body, Controller, Get, Header, HttpCode, HttpException, HttpStatus, Param, Post, Query, Redirect, Res } from '@nestjs/common';
 import { response } from 'express';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { DogsService } from './dogs.service';
@@ -62,5 +62,20 @@ export class DogsController {
     @Get()
     async getAllDogs(): Promise<CreateDogDto[]> {
         return this.dogsService.findAll();
+    }
+
+    //exception filters
+    @Get()
+    async returnAll() {
+        try {
+            this.dogsService.findAll();
+        } catch (error) {
+            throw new HttpException({
+                status: HttpStatus.FORBIDDEN,
+                error: 'this is a custom message',
+            }, HttpStatus.FORBIDDEN, {
+                cause: error,
+            })
+        }
     }
 }
