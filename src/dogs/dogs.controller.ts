@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Header, HttpCode, HttpException, HttpStatus, Param, Post, Query, Redirect, Res } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, Header, HttpCode, HttpException, HttpStatus, Param, Post, Query, Redirect, Res } from '@nestjs/common';
 import { response } from 'express';
 import { CreateDogDto } from './dto/create-dog.dto';
 import { DogsService } from './dogs.service';
@@ -77,5 +77,11 @@ export class DogsController {
                 cause: error,
             })
         }
+    }
+
+    // custom exceptions;
+    @Get()
+    async returnAllForbidden() {
+        throw new ForbiddenException()
     }
 }
